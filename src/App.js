@@ -1,23 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useState} from 'react';
+
+
+
+
+
 
 function App() {
+  const [fileUpload, setFileUpload] = useState(null);
+  const [testNum, setTestNum] = useState(0);
+
+  const onClickHandler = () => {
+    const data = new FormData() 
+    data.append('file', fileUpload);
+    console.log(data);
+  }
+
+  const handleFile = (event) => {
+    setTestNum(4);
+    console.log(event.target.files[0]);
+    console.log(testNum);
+    setFileUpload({file: event.target.files[0], loaded: 0});
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input type="file" onChange={(event) => {handleFile(event)}}/>
+      <button type="button" onClick={() => onClickHandler()}>Upload</button> 
     </div>
   );
 }
